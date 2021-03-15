@@ -29,15 +29,6 @@ public class Ship {
 		this.direction = direction;
 	}
 
-	public Ship() {
-		length = 0;
-		hits = new int[0];
-		sunken = false;
-		x = 0;
-		y = 0;
-		direction = false;
-	}
-
 	public boolean notInBounds() {
 		if (x < 0 || y < 0) return true;
 		if (direction && (x + length - 1 > 9 || y > 9)) return true;

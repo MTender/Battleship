@@ -63,19 +63,4 @@ public class Game {
 		input.nextLine();
 		return direction != 0;
 	}
-
-	public static Ship[] createShipArray() {
-		Ship battleship = new Ship();
-		Ship destroyer1 = new Ship();
-		Ship destroyer2 = new Ship();
-		Ship submarine1 = new Ship();
-		Ship submarine2 = new Ship();
-		Ship submarine3 = new Ship();
-		Ship patrolBoat1 = new Ship();
-		Ship patrolBoat2 = new Ship();
-		Ship patrolBoat3 = new Ship();
-		Ship patrolBoat4 = new Ship();
-
-		return new Ship[]{battleship, destroyer1, destroyer2, submarine1, submarine2, submarine3, patrolBoat1, patrolBoat2, patrolBoat3, patrolBoat4};
-	}
 }

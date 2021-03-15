@@ -6,7 +6,7 @@ public class Battleship {
 
 		Game.printBoard(myBoard);
 
-		Ship[] ships = Game.createShipArray();
+		Ship[] ships = new Ship[10];
 
 		Scanner input = new Scanner(System.in);
 		int index = 0;

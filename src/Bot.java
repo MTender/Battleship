@@ -6,7 +6,7 @@ public class Bot {
 	public static String[][] createRandomBoard() {
 		botBoard = Game.createEmptyBoard();
 
-		Ship[] ships = Game.createShipArray();
+		Ship[] ships = new Ship[10];
 
 		Random random = new Random();
 		int index = 0;
