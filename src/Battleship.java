@@ -6,12 +6,30 @@ public class Battleship {
 		Ship[] ships = new Ship[10];
 
 		Scanner input = new Scanner(System.in);
+		all:
 		while (true) {
 			System.out.println("Enter 'auto' for automatic or 'manual' for manual board creation: ");
 			String generation = input.nextLine();
+
 			if (generation.equals("auto")) {
-				myBoard = Game.createRandomBoard();
-				break;
+				while (true) {
+					myBoard = Game.createRandomBoard();
+					Game.printBoard(myBoard);
+					System.out.println("Are you happy with this board?");
+
+					while (true) {
+						System.out.println("Enter 'yes' to continue or 'no' to regenerate your board: ");
+						String done = input.nextLine();
+
+						if (done.equals("yes")) {
+							break all;
+						} else if (done.equals("no")) {
+							break;
+						} else {
+							System.out.println("Could not understand input.");
+						}
+					}
+				}
 			} else if (generation.equals("manual")) {
 				int index = 0;
 				String location;
