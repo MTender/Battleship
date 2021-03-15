@@ -40,12 +40,12 @@ public class Ship {
 		if (direction) {
 			for (int i = 0; i < length; i++) {
 				spot = board[y][x + i];
-				if (spot.equals("X") || spot.equals("*")) return true;
+				if (spot.equals("S") || spot.equals("*")) return true;
 			}
 		} else {
 			for (int i = 0; i < length; i++) {
 				spot = board[y + i][x];
-				if (spot.equals("X") || spot.equals("*")) return true;
+				if (spot.equals("S") || spot.equals("*")) return true;
 			}
 		}
 		return false;
@@ -60,7 +60,7 @@ public class Ship {
 			}
 			for (int i = 0; i < length; i++) {
 				if (y != 0) board[y - 1][x + i] = "*";
-				board[y][x + i] = "X";
+				board[y][x + i] = "S";
 				if (y != 9) board[y + 1][x + i] = "*";
 			}
 			if (x + length <= 9) {
@@ -76,7 +76,7 @@ public class Ship {
 			}
 			for (int i = 0; i < length; i++) {
 				if (x != 0) board[y + i][x - 1] = "*";
-				board[y + i][x] = "X";
+				board[y + i][x] = "S";
 				if (x != 9) board[y + i][x + 1] = "*";
 			}
 			if (y + length <= 9) {
