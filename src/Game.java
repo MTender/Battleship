@@ -1,9 +1,10 @@
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
 	public static void printBoard(String[][] board) {
-		System.out.println("    A  B  C  D  E  F  G  H  I  J");
+		System.out.println("\n    A  B  C  D  E  F  G  H  I  J");
 		for (int i = 0; i < 10; i++) {
 			if (i != 9) {
 				System.out.print(" " + (i + 1) + "  ");
@@ -62,5 +63,35 @@ public class Game {
 		}
 		input.nextLine();
 		return direction != 0;
+	}
+
+	public static String[][] createRandomBoard() {
+		String[][] board = Game.createEmptyBoard();
+
+		Ship[] ships = new Ship[10];
+
+		Random random = new Random();
+		int index = 0;
+		boolean direction;
+
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < i + 1; j++) {
+				while (true) {
+					direction = random.nextBoolean();
+					ships[index] = new Ship(4 - i, random.nextInt(10), random.nextInt(10), direction);
+					if (ships[index].notInBounds()) {
+						continue;
+					}
+					if (ships[index].doesCollide(board)) {
+						continue;
+					}
+					ships[index].placeShip(board);
+					index++;
+					break;
+				}
+			}
+		}
+
+		return board;
 	}
 }
