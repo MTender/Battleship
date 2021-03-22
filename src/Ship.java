@@ -1,9 +1,9 @@
 public class Ship {
 	private final int length;
-	private int[] hits;
+	private final int[] hits;
 	private boolean sunken;
-	private int x;
-	private int y;
+	private final int x;
+	private final int y;
 	private final boolean direction;
 
 	public Ship(int length, String location, boolean direction) {
@@ -13,7 +13,10 @@ public class Ship {
 			hits[i] = 1;
 		}
 		sunken = false;
-		decipherLocation(location);
+		int[] xy = Game.decipherLocation(location);
+		assert xy != null;
+		x = xy[0];
+		y = xy[1];
 		this.direction = direction;
 	}
 
@@ -53,58 +56,82 @@ public class Ship {
 
 	public void placeShip(String[][] board) {
 		if (direction) {
+			for (int i = 0; i < length; i++) {
+				board[y][x + i] = "S";
+			}
+		} else {
+			for (int i = 0; i < length; i++) {
+				board[y + i][x] = "S";
+			}
+		}
+		surroundShip(board, "*");
+	}
+
+	private void surroundShip(String[][] board, String letter) {
+		if (direction) {
 			if (x != 0) {
-				if (y != 0) board[y - 1][x - 1] = "*";
-				board[y][x - 1] = "*";
-				if (y != 9) board[y + 1][x - 1] = "*";
+				if (y != 0) board[y - 1][x - 1] = letter;
+				board[y][x - 1] = letter;
+				if (y != 9) board[y + 1][x - 1] = letter;
 			}
 			for (int i = 0; i < length; i++) {
-				if (y != 0) board[y - 1][x + i] = "*";
-				board[y][x + i] = "S";
-				if (y != 9) board[y + 1][x + i] = "*";
+				if (y != 0) board[y - 1][x + i] = letter;
+				if (y != 9) board[y + 1][x + i] = letter;
 			}
 			if (x + length <= 9) {
-				if (y != 0) board[y - 1][x + length] = "*";
-				board[y][x + length] = "*";
-				if (y != 9) board[y + 1][x + length] = "*";
+				if (y != 0) board[y - 1][x + length] = letter;
+				board[y][x + length] = letter;
+				if (y != 9) board[y + 1][x + length] = letter;
 			}
 		} else {
 			if (y != 0) {
-				if (x != 0) board[y - 1][x - 1] = "*";
-				board[y - 1][x] = "*";
-				if (x != 9) board[y - 1][x + 1] = "*";
+				if (x != 0) board[y - 1][x - 1] = letter;
+				board[y - 1][x] = letter;
+				if (x != 9) board[y - 1][x + 1] = letter;
 			}
 			for (int i = 0; i < length; i++) {
-				if (x != 0) board[y + i][x - 1] = "*";
-				board[y + i][x] = "S";
-				if (x != 9) board[y + i][x + 1] = "*";
+				if (x != 0) board[y + i][x - 1] = letter;
+				if (x != 9) board[y + i][x + 1] = letter;
 			}
 			if (y + length <= 9) {
-				if (x != 0) board[y + length][x - 1] = "*";
-				board[y + length][x] = "*";
-				if (x != 9) board[y + length][x + 1] = "*";
+				if (x != 0) board[y + length][x - 1] = letter;
+				board[y + length][x] = letter;
+				if (x != 9) board[y + length][x + 1] = letter;
 			}
 		}
 	}
 
-	public boolean hasSunken() {
+	public boolean hasSunk() {
 		for (int hit : hits) {
 			if (hit == 1) return false;
 		}
+		sunken = true;
 		return true;
 	}
 
-	public void decipherLocation(String sLocation) {
-		String[] parts = sLocation.split("");
-		x = (int) Character.toLowerCase(parts[0].charAt(0)) - 97;
-		try {
-			if (parts.length == 2) {
-				y = Integer.parseInt(parts[1]) - 1;
-			} else {
-				y = Integer.parseInt(parts[1] + parts[2]) - 1;
-			}
-		} catch (NumberFormatException nfe) {
-			System.out.println("This shouldn't happen!");
-		}
+	public void hitShip(int fX, int fY) {
+		int pos = (fX == x) ? Math.abs(y - fY) : Math.abs(x - fX);
+		hits[pos] = 0;
+	}
+
+	public void sinkProtocol(String[][] board) {
+		System.out.println("The ship has been sunk.");
+		surroundShip(board, "X");
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public boolean isSunken() {
+		return sunken;
 	}
 }

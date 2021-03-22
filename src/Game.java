@@ -65,10 +65,8 @@ public class Game {
 		return direction != 0;
 	}
 
-	public static String[][] createRandomBoard() {
+	public static String[][] createRandomBoard(Ship[] ships) {
 		String[][] board = Game.createEmptyBoard();
-
-		Ship[] ships = new Ship[10];
 
 		Random random = new Random();
 		int index = 0;
@@ -93,5 +91,85 @@ public class Game {
 		}
 
 		return board;
+	}
+
+	private static void markShip(String[][] board, Ship ship, int x, int y) {
+		assert ship != null;
+		ship.hitShip(x, y);
+		if (ship.hasSunk()) ship.sinkProtocol(board);
+	}
+
+	private static Ship findShip(Ship[] ships, int x, int y) {
+		for (Ship ship : ships) {
+			int shipX = ship.getX();
+			int shipY = ship.getY();
+
+			if (x == shipX && y == shipY) {
+				return ship;
+			} else if (x == shipX) {
+				if (shipY < y && y < shipY + ship.getLength()) {
+					return ship;
+				}
+			} else if (y == shipY) {
+				if (shipX < x && x < shipX + ship.getLength()) {
+					return ship;
+				}
+			}
+		}
+		return null;
+	}
+
+	public static void fire(String[][] opponentBoard, String[][] game, Ship[] opponentShips, int x, int y) {
+		if (opponentBoard[y][x].equals("S")) {
+			System.out.println("Hit");
+			Ship ship = findShip(opponentShips, x, y);
+			assert ship != null;
+			markShip(game, ship, x, y);
+			game[y][x] = "@";
+		} else {
+			System.out.println("Miss");
+			game[y][x] = "X";
+		}
+	}
+
+	public static String playerChoice() {
+		Scanner input = new Scanner(System.in);
+		String location;
+		while (true) {
+			Game.printBoard(Player.getGameBoard());
+			System.out.println("On which square do you want to fire?");
+			System.out.println("Enter location: ");
+			location = input.nextLine();
+			if (Game.inputNotValid(location)) {
+				System.out.println("Could not understand input, please re-enter starting location.");
+				continue;
+			}
+			break;
+		}
+		return location;
+	}
+
+	public static int[] decipherLocation(String sLocation) {
+		String[] parts = sLocation.split("");
+		int x, y;
+		x = (int) Character.toLowerCase(parts[0].charAt(0)) - 97;
+		try {
+			if (parts.length == 2) {
+				y = Integer.parseInt(parts[1]) - 1;
+			} else {
+				y = Integer.parseInt(parts[1] + parts[2]) - 1;
+			}
+			return new int[]{x, y};
+		} catch (NumberFormatException nfe) {
+			System.out.println("This shouldn't happen!");
+		}
+		return null;
+	}
+
+	public static boolean gameOver(Ship[] ships) {
+		for (Ship ship : ships) {
+			if (!ship.isSunken()) return false;
+		}
+		return true;
 	}
 }

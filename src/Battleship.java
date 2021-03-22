@@ -1,19 +1,21 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Battleship {
 	public static void begin() {
-		String[][] myBoard;
-		Ship[] ships = new Ship[10];
 
 		Scanner input = new Scanner(System.in);
+		Random random = new Random();
+
 		all:
 		while (true) {
+			String[][] myBoard;
 			System.out.println("Enter 'auto' for automatic or 'manual' for manual board creation: ");
 			String generation = input.nextLine();
 
 			if (generation.equals("auto")) {
 				while (true) {
-					myBoard = Game.createRandomBoard();
+					myBoard = Game.createRandomBoard(Player.getShips());
 					Game.printBoard(myBoard);
 					System.out.println("Are you happy with this board?");
 
@@ -22,6 +24,7 @@ public class Battleship {
 						String done = input.nextLine();
 
 						if (done.equals("yes")) {
+							Player.setSelfBoard(myBoard);
 							break all;
 						} else if (done.equals("no")) {
 							break;
@@ -35,6 +38,7 @@ public class Battleship {
 				String location;
 				boolean direction;
 				myBoard = Game.createEmptyBoard();
+				Ship[] ships = Player.getShips();
 
 				for (int i = 0; i < 4; i++) {
 					for (int j = 0; j < i + 1; j++) {
@@ -67,14 +71,44 @@ public class Battleship {
 						}
 					}
 				}
+				Player.setSelfBoard(myBoard);
 				break;
 			} else {
 				System.out.println("Could not understand input, please re-enter board creation method.");
 			}
 		}
 
-		Game.printBoard(myBoard);
-		String[][] botBoard = Game.createRandomBoard();
-		Game.printBoard(botBoard);
+		Game.printBoard(Player.getSelfBoard());
+		Game.printBoard(Computer.getSelfBoard());
+
+		boolean playerWon = false;
+		boolean computerWon = false;
+		System.out.println("Choosing who starts at random...");
+		if (random.nextBoolean()) {
+			System.out.println("Player goes first.");
+			playerWon = Player.fire(); // if game over on turn 1
+		} else {
+			System.out.println("Computer goes first.");
+		}
+
+		while (!playerWon && !computerWon) {
+			System.out.println("Computer's turn.");
+			computerWon = Computer.fire();
+			System.out.println("What the computer sees after the shot:");
+			Game.printBoard(Computer.getGameBoard());
+			if (!computerWon) {
+				System.out.println("Player's turn.");
+				playerWon = Player.fire();
+				System.out.println("Your game board after the shot:");
+				Game.printBoard(Player.getGameBoard());
+			}
+		}
+		if (playerWon) {
+			System.out.println("PLAYER WINS");
+			System.out.println("CONGRATULATIONS");
+		} else {
+			System.out.println("COMPUTER WINS");
+			System.out.println("BETTER LUCK NEXT TIME");
+		}
 	}
 }
