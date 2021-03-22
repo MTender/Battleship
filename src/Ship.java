@@ -102,6 +102,7 @@ public class Ship {
 	}
 
 	public boolean hasSunk() {
+		// there is a bug somewhere because the ship sometimes doesn't get registered as sunken
 		for (int hit : hits) {
 			if (hit == 1) return false;
 		}

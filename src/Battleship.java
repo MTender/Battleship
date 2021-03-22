@@ -86,7 +86,7 @@ public class Battleship {
 		System.out.println("Choosing who starts at random...");
 		if (random.nextBoolean()) {
 			System.out.println("Player goes first.");
-			playerWon = Player.fire(); // if game over on turn 1
+			playerWon = Player.fire();
 		} else {
 			System.out.println("Computer goes first.");
 		}

@@ -11,7 +11,7 @@ public class Player {
 
 		Game.fire(Computer.getSelfBoard(), gameBoard, Computer.getShips(), x, y);
 
-		return Game.gameOver(ships);
+		return Game.gameOver(Computer.getShips());
 	}
 
 	public static Ship[] getShips() {
