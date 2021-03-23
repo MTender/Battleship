@@ -119,16 +119,18 @@ public class Game {
 		return null;
 	}
 
-	public static void fire(String[][] opponentBoard, String[][] game, Ship[] opponentShips, int x, int y) {
+	public static boolean fire(String[][] opponentBoard, String[][] game, Ship[] opponentShips, int x, int y) {
 		if (opponentBoard[y][x].equals("S")) {
 			System.out.println("Hit");
 			game[y][x] = "@";
 			Ship ship = findShip(opponentShips, x, y);
 			assert ship != null;
 			markShip(game, ship, x, y);
+			return true;
 		} else {
 			System.out.println("Miss");
 			game[y][x] = "X";
+			return false;
 		}
 	}
 

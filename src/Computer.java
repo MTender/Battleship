@@ -6,16 +6,22 @@ public class Computer {
 	private static final String[][] gameBoard = Game.createEmptyBoard();
 
 	public static boolean fire() {
-		Random random = new Random();
-		int x, y;
+		boolean hit;
 		do {
-			x = random.nextInt(10);
-			y = random.nextInt(10);
-		} while (gameBoard[y][x].equals("X") || gameBoard[y][x].equals("@"));
+			// currently the bot fires completely randomly but in the future in the case of a hit I'll make it shoot around the hit
+			Random random = new Random();
+			int x, y;
+			do {
+				x = random.nextInt(10);
+				y = random.nextInt(10);
+			} while (gameBoard[y][x].equals("X") || gameBoard[y][x].equals("@"));
+			System.out.println("The computer shoots at " + Character.toChars(x + 97)[0] + (y + 1) + ".");
 
-		Game.fire(Player.getSelfBoard(), gameBoard, Player.getShips(), x, y);
+			hit = Game.fire(Player.getSelfBoard(), gameBoard, Player.getShips(), x, y);
+			if (Game.gameOver(Player.getShips())) return true;
+		} while (hit);
 
-		return Game.gameOver(Player.getShips());
+		return false;
 	}
 
 	public static Ship[] getShips() {

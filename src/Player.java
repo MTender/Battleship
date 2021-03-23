@@ -4,14 +4,18 @@ public class Player {
 	private static final String[][] gameBoard = Game.createEmptyBoard();
 
 	public static boolean fire() {
-		int[] xy = Game.decipherLocation(Game.playerChoice());
-		assert xy != null;
-		int x = xy[0];
-		int y = xy[1];
+		boolean hit;
+		do {
+			int[] xy = Game.decipherLocation(Game.playerChoice());
+			assert xy != null;
+			int x = xy[0];
+			int y = xy[1];
 
-		Game.fire(Computer.getSelfBoard(), gameBoard, Computer.getShips(), x, y);
+			hit = Game.fire(Computer.getSelfBoard(), gameBoard, Computer.getShips(), x, y);
+			if (Game.gameOver(Computer.getShips())) return true;
+		} while (hit);
 
-		return Game.gameOver(Computer.getShips());
+		return false;
 	}
 
 	public static Ship[] getShips() {
