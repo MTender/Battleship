@@ -1,4 +1,6 @@
 # Battleship
 A game of command line based Battleship.
 
-Development is still in early stages, game is currently not playable.
+The game is functional, but bugs may occur.
+
+The rules are introduced at the beginning of the game.
