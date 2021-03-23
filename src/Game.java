@@ -143,7 +143,7 @@ public class Game {
 			System.out.println("Enter location: ");
 			location = input.nextLine();
 			if (Game.inputNotValid(location)) {
-				System.out.println("Could not understand input, please re-enter starting location.");
+				System.out.println("Could not understand input, please re-enter coordinates.");
 				continue;
 			}
 			break;
