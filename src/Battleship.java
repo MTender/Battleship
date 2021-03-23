@@ -91,12 +91,12 @@ public class Battleship {
 		}
 
 		while (!playerWon && !computerWon) {
-			System.out.println("Computer's turn.");
+			System.out.println("\nCOMPUTER's turn.");
 			computerWon = Computer.fire();
 			System.out.println("What the computer sees after the shot:");
 			Game.printBoard(Computer.getGameBoard());
 			if (!computerWon) {
-				System.out.println("Player's turn.");
+				System.out.println("\nPLAYER's turn.");
 				playerWon = Player.fire();
 				System.out.println("Your game board after the shot:");
 				Game.printBoard(Player.getGameBoard());
