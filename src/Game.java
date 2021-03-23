@@ -7,13 +7,13 @@ public class Game {
 		System.out.println("    A  B  C  D  E  F  G  H  I  J");
 		for (int i = 0; i < 10; i++) {
 			if (i != 9) {
-				System.out.print(" " + (i + 1) + "  ");
+				System.out.print(" " + (i + 1));
 			} else {
-				System.out.print(i + 1 + "  ");
+				System.out.print(i + 1);
 			}
 			for (int j = 0; j < 10; j++) {
 				String g = board[i][j];
-				System.out.print((g.equals("*")) ? "_  " : g + "  ");
+				System.out.print((g.equals("*")) ? "  _" : "  " + g);
 			}
 			System.out.println();
 		}
