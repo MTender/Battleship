@@ -79,7 +79,6 @@ public class Battleship {
 		}
 
 		Game.printBoard(Player.getSelfBoard());
-		Game.printBoard(Computer.getSelfBoard());
 
 		boolean playerWon = false;
 		boolean computerWon = false;
