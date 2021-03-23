@@ -7,9 +7,9 @@ public class Computer {
 
 	public static boolean fire() {
 		boolean hit;
+		Random random = new Random();
 		do {
 			// currently the bot fires completely randomly but in the future in the case of a hit I'll make it shoot around the hit
-			Random random = new Random();
 			int x, y;
 			do {
 				x = random.nextInt(10);

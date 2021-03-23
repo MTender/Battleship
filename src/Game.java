@@ -95,7 +95,6 @@ public class Game {
 	}
 
 	private static void markShip(String[][] board, Ship ship, int x, int y) {
-		assert ship != null;
 		ship.hitShip(x, y);
 		if (ship.hasSunk()) ship.sinkProtocol(board);
 	}

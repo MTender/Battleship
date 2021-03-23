@@ -111,8 +111,7 @@ public class Ship {
 	}
 
 	public void hitShip(int fX, int fY) {
-		int pos = (fX == x) ? Math.abs(y - fY) : Math.abs(x - fX);
-		hits[pos] = 0;
+		hits[fX == x ? fY - y : fX - x] = 0;
 	}
 
 	public void sinkProtocol(String[][] board) {
