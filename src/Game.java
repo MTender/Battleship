@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Game {
 	public static void printBoard(String[][] board) {
-		System.out.println("\n    A  B  C  D  E  F  G  H  I  J");
+		System.out.println("    A  B  C  D  E  F  G  H  I  J");
 		for (int i = 0; i < 10; i++) {
 			if (i != 9) {
 				System.out.print(" " + (i + 1) + "  ");
@@ -12,7 +12,8 @@ public class Game {
 				System.out.print(i + 1 + "  ");
 			}
 			for (int j = 0; j < 10; j++) {
-				System.out.print(board[i][j] + "  ");
+				String g = board[i][j];
+				System.out.print((g.equals("*")) ? "_  " : g + "  ");
 			}
 			System.out.println();
 		}
