@@ -71,13 +71,11 @@ public class Game {
 
 		Random random = new Random();
 		int index = 0;
-		boolean direction;
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < i + 1; j++) {
 				while (true) {
-					direction = random.nextBoolean();
-					ships[index] = new Ship(4 - i, random.nextInt(10), random.nextInt(10), direction);
+					ships[index] = new Ship(4 - i, random.nextInt(10), random.nextInt(10), random.nextBoolean());
 					if (ships[index].notInBounds()) {
 						continue;
 					}
