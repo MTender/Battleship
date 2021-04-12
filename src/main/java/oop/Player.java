@@ -1,3 +1,5 @@
+package oop;
+
 public class Player {
 	private static final Ship[] ships = new Ship[10];
 	private static String[][] selfBoard;

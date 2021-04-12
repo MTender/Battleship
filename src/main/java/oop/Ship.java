@@ -1,3 +1,5 @@
+package oop;
+
 public class Ship {
 	private final int length;
 	private final int[] hits;

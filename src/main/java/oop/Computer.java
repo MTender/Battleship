@@ -1,3 +1,5 @@
+package oop;
+
 import java.util.Random;
 
 public class Computer {
