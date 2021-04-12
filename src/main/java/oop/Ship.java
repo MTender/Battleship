@@ -1,7 +1,5 @@
 package oop;
 
-import java.util.Arrays;
-
 public class Ship {
 	private final int length;
 	private final boolean[] hits;
