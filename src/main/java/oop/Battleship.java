@@ -8,7 +8,7 @@ public class Battleship {
 
 		Scanner input = new Scanner(System.in);
 		Random random = new Random();
-
+/*
 		all:
 		while (true) {
 			String[][] myBoard;
@@ -81,8 +81,8 @@ public class Battleship {
 		}
 
 		Game.printBoard(Player.getSelfBoard());
-
-		boolean playerWon = false;
+*/
+		/*boolean playerWon = false;
 		boolean computerWon = false;
 		System.out.println("Choosing who starts at random...");
 		if (random.nextBoolean()) {
@@ -110,6 +110,6 @@ public class Battleship {
 		} else {
 			System.out.println("COMPUTER WINS");
 			System.out.println("BETTER LUCK NEXT TIME");
-		}
+		}*/
 	}
 }

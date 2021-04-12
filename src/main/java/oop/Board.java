@@ -13,7 +13,7 @@ public class Board {
 	private final int squareDimentions;
 	private VBox board;
 	private Button[][] buttons;
-	private final boolean clickable;
+	private boolean clickable;
 
 	public Board(int squareDimentions, boolean clickable) {
 		this.squareDimentions = squareDimentions;
@@ -27,6 +27,10 @@ public class Board {
 
 	public Button[][] getButtons() {
 		return buttons;
+	}
+
+	public void setClickable(boolean clickable) {
+		this.clickable = clickable;
 	}
 
 	public void generate() {
@@ -55,15 +59,15 @@ public class Board {
 			for (int j = 0; j < 10; j++) {
 				Button square = new Button();
 				square.setPrefSize(squareDimentions, squareDimentions);
+				square.setStyle("-fx-background-color: snow; -fx-border-color: lightgrey");
 				buttons[i][j] = square;
-				if (clickable) square.setOnMouseClicked(event -> squareClicked(square));
+				int y = i, x = j;
+				square.setOnMouseClicked(event -> {
+					if(clickable) Player.fire(square, x, y);
+				});
 				row.getChildren().add(square);
 			}
 			board.getChildren().add(row);
 		}
-	}
-
-	private void squareClicked(Button square) {
-		square.setStyle("-fx-background-color: black");
 	}
 }

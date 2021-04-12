@@ -1,5 +1,8 @@
 package oop;
 
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -136,7 +139,7 @@ public class Game {
 		}
 	}
 
-	public static String playerChoice() {
+	/*public static String playerChoice() {
 		Scanner input = new Scanner(System.in);
 		String location;
 		while (true) {
@@ -151,9 +154,9 @@ public class Game {
 			break;
 		}
 		return location;
-	}
+	}*/
 
-	public static int[] decipherLocation(String sLocation) {
+	/*public static int[] decipherLocation(String sLocation) {
 		String[] parts = sLocation.split("");
 		int x, y;
 		x = (int) Character.toLowerCase(parts[0].charAt(0)) - 97;
@@ -168,12 +171,25 @@ public class Game {
 			System.out.println("This shouldn't happen!");
 		}
 		return null;
-	}
+	}*/
 
 	public static boolean gameOver(Ship[] ships) {
 		for (Ship ship : ships) {
 			if (!ship.isSunken()) return false;
 		}
 		return true;
+	}
+
+	public static void displayBoard(String[][] board, Board whereToDisplay) {
+		Button[][] buttons = whereToDisplay.getButtons();
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (board[i][j].equals("S")) {
+					buttons[i][j].setStyle("-fx-background-color: black; -fx-border-color: black");
+				} else {
+					buttons[i][j].setStyle("-fx-background-color: snow; -fx-border-color: lightgrey");
+				}
+			}
+		}
 	}
 }

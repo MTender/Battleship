@@ -20,7 +20,12 @@ public class Computer {
 			System.out.println("The computer shoots at " + Character.toChars(x + 97)[0] + (y + 1) + ".");
 
 			hit = Game.fire(Player.getSelfBoard(), gameBoard, Player.getShips(), x, y);
-			if (Game.gameOver(Player.getShips())) return true;
+			if (!hit) {
+				Interface.getBotGameBoard().getButtons()[y][x].setText("X");
+			} else {
+				Interface.getBotGameBoard().getButtons()[y][x].setStyle("-fx-background-color: black; -fx-border-color: black");
+				if (Game.gameOver(Player.getShips())) return true;
+			}
 		} while (hit);
 
 		return false;

@@ -1,21 +1,24 @@
 package oop;
 
+import javafx.scene.control.Button;
+
 public class Player {
 	private static final Ship[] ships = new Ship[10];
 	private static String[][] selfBoard;
 	private static final String[][] gameBoard = Game.createEmptyBoard();
 
-	public static boolean fire() {
-		boolean hit;
-		do {
-			int[] xy = Game.decipherLocation(Game.playerChoice());
-			assert xy != null;
-			int x = xy[0];
-			int y = xy[1];
+	public static boolean fire(Button square, int x, int y) {
+		Interface.getPlayerGameBoard().setClickable(false);
+		boolean hit = Game.fire(Computer.getSelfBoard(), gameBoard, Computer.getShips(), x, y);
 
-			hit = Game.fire(Computer.getSelfBoard(), gameBoard, Computer.getShips(), x, y);
+		if (!hit) {
+			square.setText("X");
+			Computer.fire();
+		} else {
+			square.setStyle("-fx-background-color: black; -fx-border-color: black");
 			if (Game.gameOver(Computer.getShips())) return true;
-		} while (hit);
+		}
+		Interface.getPlayerGameBoard().setClickable(true);
 
 		return false;
 	}

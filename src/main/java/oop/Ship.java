@@ -8,7 +8,7 @@ public class Ship {
 	private final int y;
 	private final boolean direction;
 
-	public Ship(int length, String location, boolean direction) {
+	/*public Ship(int length, String location, boolean direction) {
 		this.length = length;
 		hits = new int[length];
 		for (int i = 0; i < length; i++) {
@@ -20,7 +20,7 @@ public class Ship {
 		x = xy[0];
 		y = xy[1];
 		this.direction = direction;
-	}
+	}*/
 
 	public Ship(int length, int x, int y, boolean direction) {
 		this.length = length;
@@ -66,10 +66,10 @@ public class Ship {
 				board[y + i][x] = "S";
 			}
 		}
-		surroundShip(board, "*");
+		surroundShip(board, "*", null, false);
 	}
 
-	private void surroundShip(String[][] board, String letter) {
+	private void surroundShip(String[][] board, String letter, Board displayBoard, boolean hasDisplay) { // when placing ships no display, bt shooting has display
 		if (direction) {
 			if (x != 0) {
 				if (y != 0) board[y - 1][x - 1] = letter;
@@ -101,6 +101,10 @@ public class Ship {
 				if (x != 9) board[y + length][x + 1] = letter;
 			}
 		}
+	}
+
+	private void markLocation(int x, int y) {
+
 	}
 
 	public boolean hasSunk() {
