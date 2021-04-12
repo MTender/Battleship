@@ -1,32 +1,20 @@
 package oop;
 
+import java.util.Arrays;
+
 public class Ship {
 	private final int length;
-	private final int[] hits;
+	private final boolean[] hits;
 	private boolean sunken;
 	private final int x;
 	private final int y;
 	private final boolean direction;
 
-	/*public Ship(int length, String location, boolean direction) {
-		this.length = length;
-		hits = new int[length];
-		for (int i = 0; i < length; i++) {
-			hits[i] = 1;
-		}
-		sunken = false;
-		int[] xy = Game.decipherLocation(location);
-		assert xy != null;
-		x = xy[0];
-		y = xy[1];
-		this.direction = direction;
-	}*/
-
 	public Ship(int length, int x, int y, boolean direction) {
 		this.length = length;
-		hits = new int[length];
+		hits = new boolean[length];
 		for (int i = 0; i < length; i++) {
-			hits[i] = 1;
+			hits[i] = false;
 		}
 		sunken = false;
 		this.x = x;
@@ -66,62 +54,62 @@ public class Ship {
 				board[y + i][x] = "S";
 			}
 		}
-		surroundShip(board, "*", null, false);
+		surroundShip(board, "*", null);
 	}
 
-	private void surroundShip(String[][] board, String letter, Board displayBoard, boolean hasDisplay) { // when placing ships no display, bt shooting has display
+	private void surroundShip(String[][] board, String letter, Board displayBoard) {
 		if (direction) {
 			if (x != 0) {
-				if (y != 0) board[y - 1][x - 1] = letter;
-				board[y][x - 1] = letter;
-				if (y != 9) board[y + 1][x - 1] = letter;
+				if (y != 0) markLocation(x - 1, y - 1, board, letter, displayBoard);
+				markLocation(x - 1, y, board, letter, displayBoard);
+				if (y != 9) markLocation(x - 1, y + 1, board, letter, displayBoard);
 			}
 			for (int i = 0; i < length; i++) {
-				if (y != 0) board[y - 1][x + i] = letter;
-				if (y != 9) board[y + 1][x + i] = letter;
+				if (y != 0) markLocation(x + i, y - 1, board, letter, displayBoard);
+				if (y != 9) markLocation(x + i, y + 1, board, letter, displayBoard);
 			}
 			if (x + length <= 9) {
-				if (y != 0) board[y - 1][x + length] = letter;
-				board[y][x + length] = letter;
-				if (y != 9) board[y + 1][x + length] = letter;
+				if (y != 0) markLocation(x + length, y - 1, board, letter, displayBoard);
+				markLocation(x + length, y, board, letter, displayBoard);
+				if (y != 9) markLocation(x + length, y + 1, board, letter, displayBoard);
 			}
 		} else {
 			if (y != 0) {
-				if (x != 0) board[y - 1][x - 1] = letter;
-				board[y - 1][x] = letter;
-				if (x != 9) board[y - 1][x + 1] = letter;
+				if (x != 0) markLocation(x - 1, y - 1, board, letter, displayBoard);
+				markLocation(x, y - 1, board, letter, displayBoard);
+				if (x != 9) markLocation(x + 1, y - 1, board, letter, displayBoard);
 			}
 			for (int i = 0; i < length; i++) {
-				if (x != 0) board[y + i][x - 1] = letter;
-				if (x != 9) board[y + i][x + 1] = letter;
+				if (x != 0) markLocation(x - 1, y + i, board, letter, displayBoard);
+				if (x != 9) markLocation(x + 1, y + i, board, letter, displayBoard);
 			}
 			if (y + length <= 9) {
-				if (x != 0) board[y + length][x - 1] = letter;
-				board[y + length][x] = letter;
-				if (x != 9) board[y + length][x + 1] = letter;
+				if (x != 0) markLocation(x - 1, y + length, board, letter, displayBoard);
+				markLocation(x, y + length, board, letter, displayBoard);
+				if (x != 9) markLocation(x + 1, y + length, board, letter, displayBoard);
 			}
 		}
 	}
 
-	private void markLocation(int x, int y) {
-
+	private static void markLocation(int x, int y, String[][] board, String letter, Board displayBoard) {
+		board[y][x] = letter;
+		if (displayBoard != null) displayBoard.getButtons()[y][x].setText("X");
 	}
 
 	public boolean hasSunk() {
-		for (int hit : hits) {
-			if (hit == 1) return false;
+		for (boolean hit : hits) {
+			if (!hit) return false;
 		}
 		sunken = true;
 		return true;
 	}
 
 	public void hitShip(int fX, int fY) {
-		hits[fX == x ? fY - y : fX - x] = 0;
+		hits[fX == x ? fY - y : fX - x] = true;
 	}
 
-	public void sinkProtocol(String[][] board) {
-		System.out.println("The ship has been sunk.");
-		surroundShip(board, "X");
+	public void sinkProtocol(String[][] board, Board displayBoard) {
+		surroundShip(board, "X", displayBoard);
 	}
 
 	public int getX() {

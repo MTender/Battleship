@@ -63,7 +63,13 @@ public class Board {
 				buttons[i][j] = square;
 				int y = i, x = j;
 				square.setOnMouseClicked(event -> {
-					if(clickable) Player.fire(square, x, y);
+					if (clickable) {
+						boolean playerWon = Player.fire(square, x, y);
+						if (playerWon) System.out.println("PLAYER WINS");
+						else if (Game.gameOver(Player.getShips())) {
+							System.out.println("COMPUTER WINS");
+						}
+					}
 				});
 				row.getChildren().add(square);
 			}

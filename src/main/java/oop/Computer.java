@@ -17,9 +17,8 @@ public class Computer {
 				x = random.nextInt(10);
 				y = random.nextInt(10);
 			} while (gameBoard[y][x].equals("X") || gameBoard[y][x].equals("@"));
-			System.out.println("The computer shoots at " + Character.toChars(x + 97)[0] + (y + 1) + ".");
 
-			hit = Game.fire(Player.getSelfBoard(), gameBoard, Player.getShips(), x, y);
+			hit = Game.fire(Player.getSelfBoard(), gameBoard, Player.getShips(), x, y, Interface.getBotGameBoard());
 			if (!hit) {
 				Interface.getBotGameBoard().getButtons()[y][x].setText("X");
 			} else {
@@ -37,9 +36,5 @@ public class Computer {
 
 	public static String[][] getSelfBoard() {
 		return selfBoard;
-	}
-
-	public static String[][] getGameBoard() {
-		return gameBoard;
 	}
 }

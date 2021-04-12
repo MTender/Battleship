@@ -9,11 +9,11 @@ public class Player {
 
 	public static boolean fire(Button square, int x, int y) {
 		Interface.getPlayerGameBoard().setClickable(false);
-		boolean hit = Game.fire(Computer.getSelfBoard(), gameBoard, Computer.getShips(), x, y);
+		boolean hit = Game.fire(Computer.getSelfBoard(), gameBoard, Computer.getShips(), x, y, Interface.getPlayerGameBoard());
 
 		if (!hit) {
 			square.setText("X");
-			Computer.fire();
+			if (Computer.fire()) return false;
 		} else {
 			square.setStyle("-fx-background-color: black; -fx-border-color: black");
 			if (Game.gameOver(Computer.getShips())) return true;
@@ -29,10 +29,6 @@ public class Player {
 
 	public static String[][] getSelfBoard() {
 		return selfBoard;
-	}
-
-	public static String[][] getGameBoard() {
-		return gameBoard;
 	}
 
 	public static void setSelfBoard(String[][] selfBoard) {
