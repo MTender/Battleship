@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Logger {
 	private static boolean logged;
 	private static LogWriter logWriter;
-	private static final String logFileName = "battleship-log.txt";
+	private static final String logFileName = "battleship-log.csv";
 
 	public static void logMove(boolean who, int x, int y, boolean hit) {
 		if (logged) {

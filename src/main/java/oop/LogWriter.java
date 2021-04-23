@@ -1,26 +1,28 @@
 package oop;
 
-import java.io.DataOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class LogWriter {
-	private final DataOutputStream dos;
+	private final BufferedWriter bw;
 
 	public LogWriter(String fileName) throws FileNotFoundException {
-		this.dos = new DataOutputStream(new FileOutputStream(fileName));
+		this.bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), StandardCharsets.UTF_8));
 	}
 
 	public void writeMove(boolean who, int x, int y) throws IOException {
-		dos.writeBoolean(who);
-		dos.writeInt(x);
-		dos.writeInt(y);
+		bw.append(who ? '1' : '0');
+		bw.append(',');
+		bw.append(String.valueOf(x));
+		bw.append(',');
+		bw.append(String.valueOf(y));
+		bw.newLine();
+		bw.flush();
 	}
 
 	public void close() {
 		try {
-			dos.close();
+			bw.close();
 		} catch (IOException e) {
 			Logger.setLogged(false);
 		}

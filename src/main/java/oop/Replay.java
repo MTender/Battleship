@@ -11,11 +11,22 @@ public class Replay {
 				Scene scene = Interface.createInterface(true);
 				Main.getStage().setScene(scene);
 				Move move = logReader.readMove();
+				// add delay
 				while (move != null) {
+					int x = move.getX();
+					int y = move.getY();
 					if (move.isPlayer()) {
-						Game.fire(Computer.getSelfBoard(), Player.getGameBoard(), Computer.getShips(), move.getX(), move.getY(), Interface.getPlayerGameBoard());
+						if (Game.fire(Computer.getSelfBoard(), Player.getGameBoard(), Computer.getShips(), x, y, Interface.getPlayerGameBoard())) {
+							Interface.getPlayerGameBoard().getButtons()[y][x].setStyle("-fx-background-color: black; -fx-border-color: black");
+						} else {
+							Interface.getPlayerGameBoard().getButtons()[y][x].setText("X");
+						}
 					} else {
-						Game.fire(Player.getSelfBoard(), Computer.getGameBoard(), Player.getShips(), move.getX(), move.getY(), Interface.getBotGameBoard());
+						if (Game.fire(Player.getSelfBoard(), Computer.getGameBoard(), Player.getShips(), x, y, Interface.getBotGameBoard())) {
+							Interface.getBotGameBoard().getButtons()[y][x].setStyle("-fx-background-color: black; -fx-border-color: black");
+						} else {
+							Interface.getBotGameBoard().getButtons()[y][x].setText("X");
+						}
 					}
 					move = logReader.readMove();
 				}
