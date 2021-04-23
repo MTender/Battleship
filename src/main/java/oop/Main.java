@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class Main extends Application {
 	private static Stage stage;
