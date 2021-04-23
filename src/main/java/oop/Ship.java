@@ -125,4 +125,8 @@ public class Ship {
 	public boolean isSunken() {
 		return sunken;
 	}
+
+	public boolean isDirection() {
+		return direction;
+	}
 }

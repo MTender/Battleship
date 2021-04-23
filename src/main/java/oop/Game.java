@@ -50,14 +50,15 @@ public class Game {
 		for (Ship ship : ships) {
 			int shipX = ship.getX();
 			int shipY = ship.getY();
+			boolean shipDir = ship.isDirection();
 
 			if (x == shipX && y == shipY) {
 				return ship;
-			} else if (x == shipX) {
+			} else if (x == shipX && !shipDir) {
 				if (shipY < y && y < shipY + ship.getLength()) {
 					return ship;
 				}
-			} else if (y == shipY) {
+			} else if (y == shipY && shipDir) {
 				if (shipX < x && x < shipX + ship.getLength()) {
 					return ship;
 				}
