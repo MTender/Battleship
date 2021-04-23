@@ -65,9 +65,9 @@ public class Board {
 				square.setOnMouseClicked(event -> {
 					if (clickable) {
 						boolean playerWon = Player.fire(square, x, y);
-						if (playerWon) System.out.println("PLAYER WINS");
+						if (playerWon) GameOver.popUp(true);
 						else if (Game.gameOver(Player.getShips())) {
-							System.out.println("COMPUTER WINS");
+							GameOver.popUp(false);
 						}
 					}
 				});

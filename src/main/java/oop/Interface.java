@@ -81,7 +81,7 @@ public class Interface {
 			for (Button button : buttons) {
 				button.setVisible(false);
 			}
-			Interface.startGameplay();
+			startGameplay();
 		});
 	}
 

@@ -64,7 +64,7 @@ public class Game {
 				}
 			}
 		}
-		throw new RuntimeException();
+		throw new RuntimeException("Ship not found.");
 	}
 
 	public static boolean fire(String[][] opponentBoard, String[][] game, Ship[] opponentShips, int x, int y, Board displayBoard) {

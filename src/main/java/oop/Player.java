@@ -3,13 +3,14 @@ package oop;
 import javafx.scene.control.Button;
 
 public class Player {
-	private static final Ship[] ships = new Ship[10];
+	private static Ship[] ships;
 	private static String[][] selfBoard;
-	private static final String[][] gameBoard = Game.createEmptyBoard();
+	private static String[][] gameBoard;
 
 	public static boolean fire(Button square, int x, int y) {
 		Interface.getPlayerGameBoard().setClickable(false);
 		boolean hit = Game.fire(Computer.getSelfBoard(), gameBoard, Computer.getShips(), x, y, Interface.getPlayerGameBoard());
+		Logger.logMove(true, x, y, hit);
 
 		if (!hit) {
 			square.setText("X");
@@ -33,5 +34,10 @@ public class Player {
 
 	public static void setSelfBoard(String[][] selfBoard) {
 		Player.selfBoard = selfBoard;
+	}
+
+	public static void initiate() {
+		ships = new Ship[10];
+		gameBoard = Game.createEmptyBoard();
 	}
 }

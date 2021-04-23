@@ -3,9 +3,9 @@ package oop;
 import java.util.Random;
 
 public class Computer {
-	private static final Ship[] ships = new Ship[10];
-	private static final String[][] selfBoard = Game.createRandomBoard(ships);
-	private static final String[][] gameBoard = Game.createEmptyBoard();
+	private static Ship[] ships;
+	private static String[][] selfBoard;
+	private static String[][] gameBoard;
 
 	public static boolean fire() {
 		boolean hit;
@@ -19,6 +19,8 @@ public class Computer {
 			} while (gameBoard[y][x].equals("X") || gameBoard[y][x].equals("@"));
 
 			hit = Game.fire(Player.getSelfBoard(), gameBoard, Player.getShips(), x, y, Interface.getBotGameBoard());
+			Logger.logMove(false, x, y, hit);
+
 			if (!hit) {
 				Interface.getBotGameBoard().getButtons()[y][x].setText("X");
 			} else {
@@ -36,5 +38,11 @@ public class Computer {
 
 	public static String[][] getSelfBoard() {
 		return selfBoard;
+	}
+
+	public static void initiate() {
+		ships = new Ship[10];
+		selfBoard = Game.createRandomBoard(ships);
+		gameBoard = Game.createEmptyBoard();
 	}
 }
