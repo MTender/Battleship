@@ -13,7 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class GameOver {
-	public static void popUp(boolean winner) {
+	public static void popUp(String message) {
 		Logger.getLogWriter().close();
 
 		Stage popup = new Stage();
@@ -22,7 +22,7 @@ public class GameOver {
 		StackPane sp = new StackPane();
 		Scene popupScene = new Scene(sp, 300, 150);
 
-		Label victory = new Label(winner ? "YOU WON!" : "COMPUTER WINS");
+		Label victory = new Label(message);
 
 		Text question;
 		if (Logger.isLogged()) {
@@ -42,7 +42,8 @@ public class GameOver {
 				popup.hide();
 				Main.startNewGame();
 			} else if (code == KeyCode.R && Logger.isLogged()) {
-				System.out.println("Not yet implemented");
+				popup.hide();
+				Replay.startReplay();
 			} else if (code == KeyCode.E) {
 				System.exit(0);
 			}

@@ -5,11 +5,12 @@ import java.io.IOException;
 public class Logger {
 	private static boolean logged;
 	private static LogWriter logWriter;
+	private static final String logFileName = "battleship-log.txt";
 
 	public static void logMove(boolean who, int x, int y, boolean hit) {
 		if (logged) {
 			try {
-				logWriter.writeMove(who, x, y, hit);
+				logWriter.writeMove(who, x, y);
 			} catch (IOException e) {
 				logged = false;
 			}
@@ -30,5 +31,9 @@ public class Logger {
 
 	public static void setLogWriter(LogWriter logWriter) {
 		Logger.logWriter = logWriter;
+	}
+
+	public static String getLogFileName() {
+		return logFileName;
 	}
 }

@@ -22,9 +22,9 @@ public class Main extends Application {
 
 	public static void startNewGame() {
 		initiateClassVariables();
-		Scene scene = Interface.createInterface();
+		Scene scene = Interface.createInterface(false);
 		try {
-			Logger.setLogWriter(new LogWriter("battleship-log.txt"));
+			Logger.setLogWriter(new LogWriter(Logger.getLogFileName()));
 		} catch (FileNotFoundException e) {
 			Logger.setLogged(false);
 		}
@@ -38,5 +38,9 @@ public class Main extends Application {
 		Logger.setLogged(true);
 		Player.initiate();
 		Computer.initiate();
+	}
+
+	public static Stage getStage() {
+		return stage;
 	}
 }

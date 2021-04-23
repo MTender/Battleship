@@ -36,6 +36,10 @@ public class Player {
 		Player.selfBoard = selfBoard;
 	}
 
+	public static String[][] getGameBoard() {
+		return gameBoard;
+	}
+
 	public static void initiate() {
 		ships = new Ship[10];
 		gameBoard = Game.createEmptyBoard();

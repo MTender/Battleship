@@ -67,14 +67,14 @@ public class Game {
 		throw new RuntimeException("Ship not found.");
 	}
 
-	public static boolean fire(String[][] opponentBoard, String[][] game, Ship[] opponentShips, int x, int y, Board displayBoard) {
+	public static boolean fire(String[][] opponentBoard, String[][] gameBoard, Ship[] opponentShips, int x, int y, Board displayBoard) {
 		if (opponentBoard[y][x].equals("S")) {
-			game[y][x] = "@";
+			gameBoard[y][x] = "@";
 			Ship ship = findShip(opponentShips, x, y);
-			markShip(game, ship, x, y, displayBoard);
+			markShip(gameBoard, ship, x, y, displayBoard);
 			return true;
 		} else {
-			game[y][x] = "X";
+			gameBoard[y][x] = "X";
 			return false;
 		}
 	}

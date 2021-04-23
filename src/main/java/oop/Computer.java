@@ -40,6 +40,10 @@ public class Computer {
 		return selfBoard;
 	}
 
+	public static String[][] getGameBoard() {
+		return gameBoard;
+	}
+
 	public static void initiate() {
 		ships = new Ship[10];
 		selfBoard = Game.createRandomBoard(ships);

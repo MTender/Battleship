@@ -12,11 +12,10 @@ public class LogWriter {
 		this.dos = new DataOutputStream(new FileOutputStream(fileName));
 	}
 
-	public void writeMove(boolean who, int x, int y, boolean didHit) throws IOException {
+	public void writeMove(boolean who, int x, int y) throws IOException {
 		dos.writeBoolean(who);
 		dos.writeInt(x);
 		dos.writeInt(y);
-		dos.writeBoolean(didHit);
 	}
 
 	public void close() {

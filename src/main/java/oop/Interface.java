@@ -1,5 +1,6 @@
 package oop;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -22,45 +23,60 @@ public class Interface {
 		return botGameBoard;
 	}
 
-	public static Scene createInterface() {
+	public static Scene createInterface(boolean isReplay) {
 		BorderPane bp = new BorderPane();
 
 		VBox left = new VBox();
+		left.setSpacing(40);
+		BorderPane.setMargin(left, new Insets(10));
+
 		botGameBoard = new Board(30, false);
 		playerBoard = new Board(30, false);
 
 		left.getChildren().addAll(botGameBoard.getBoard(), playerBoard.getBoard());
-		left.setSpacing(40);
 
 		VBox right = new VBox();
-		playerGameBoard = new Board(40, false);
-
-		HBox info = new HBox();
-
-		VBox controls = new VBox();
-		Button[] buttons = new Button[]{new Button("Randomize"), new Button("Confirm"), new Button("Rotate")};
-		for (Button button : buttons) {
-			button.setPrefSize(200, 50);
-			button.setFont(Font.font(30));
-		}
-		controls.getChildren().addAll(buttons);
-
-		VBox text = new VBox();
-		Text upper = new Text();
-		Text lower = new Text();
-		text.getChildren().addAll(upper, lower);
-
-		info.getChildren().addAll(controls, text);
-
-		right.getChildren().addAll(playerGameBoard.getBoard(), info);
 		right.setSpacing(40);
+		BorderPane.setMargin(right, new Insets(10));
 
 		bp.setLeft(left);
 		bp.setRight(right);
 
-		enableButtons(buttons);
 
-		return new Scene(bp, 900, 700, Color.WHITE);
+		if (isReplay) {
+			playerGameBoard = new Board(30, false);
+			Board botBoard = new Board(30, false);
+
+			right.getChildren().addAll(playerGameBoard.getBoard(), botBoard.getBoard());
+
+			Game.displayBoard(Player.getSelfBoard(), playerBoard);
+			Game.displayBoard(Computer.getSelfBoard(), botBoard);
+		} else {
+			playerGameBoard = new Board(40, false);
+
+			HBox info = new HBox();
+
+			VBox controls = new VBox();
+			Button[] buttons = new Button[]{new Button("Randomize"), new Button("Confirm"), new Button("Rotate")};
+			for (Button button : buttons) {
+				button.setPrefSize(200, 50);
+				button.setFont(Font.font(30));
+			}
+			controls.getChildren().addAll(buttons);
+
+			VBox text = new VBox();
+			Text upper = new Text();
+			Text lower = new Text();
+			text.getChildren().addAll(upper, lower);
+
+			info.getChildren().addAll(controls, text);
+
+			right.getChildren().addAll(playerGameBoard.getBoard(), info);
+
+			enableButtons(buttons);
+		}
+
+		return new Scene(bp, 900, 750, Color.WHITE);
 	}
 
 	public static void enableButtons(Button[] buttons) {

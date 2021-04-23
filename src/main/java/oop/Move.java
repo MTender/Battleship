@@ -1,20 +1,18 @@
 package oop;
 
 public class Move {
-	private final boolean who;
+	private final boolean isPlayer;
 	private final int x;
 	private final int y;
-	private final boolean didHit;
 
-	public Move(boolean who, int x, int y, boolean didHit) {
-		this.who = who;
+	public Move(boolean isPlayer, int x, int y) {
+		this.isPlayer = isPlayer;
 		this.x = x;
 		this.y = y;
-		this.didHit = didHit;
 	}
 
-	public boolean isWho() {
-		return who;
+	public boolean isPlayer() {
+		return isPlayer;
 	}
 
 	public int getX() {
@@ -23,9 +21,5 @@ public class Move {
 
 	public int getY() {
 		return y;
-	}
-
-	public boolean isDidHit() {
-		return didHit;
 	}
 }
