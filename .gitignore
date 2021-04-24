@@ -20,7 +20,7 @@ gradle-app.setting
 
 # Log file
 *.log
-battleship-log.csv
+*.csv
 
 # BlueJ files
 *.ctxt
