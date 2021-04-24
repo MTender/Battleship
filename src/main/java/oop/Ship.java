@@ -1,5 +1,7 @@
 package oop;
 
+import java.util.Arrays;
+
 public class Ship {
 	private final int length;
 	private final boolean[] hits;
@@ -100,6 +102,11 @@ public class Ship {
 		}
 		sunken = true;
 		return true;
+	}
+
+	public void removeHits() {
+		Arrays.fill(hits, false);
+		sunken = false;
 	}
 
 	public void hitShip(int fX, int fY) {

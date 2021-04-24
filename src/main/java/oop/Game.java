@@ -98,4 +98,13 @@ public class Game {
 			}
 		}
 	}
+
+	public static void resetShips() {
+		for (Ship ship : Player.getShips()) {
+			ship.removeHits();
+		}
+		for (Ship ship : Computer.getShips()) {
+			ship.removeHits();
+		}
+	}
 }

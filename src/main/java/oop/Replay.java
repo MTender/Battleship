@@ -1,18 +1,32 @@
 package oop;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
 public class Replay {
+	private static Timeline timeline;
+
 	public static void startReplay() {
 		try {
-			try (LogReader logReader = new LogReader(Logger.getLogFileName())) {
-				Scene scene = Interface.createInterface(true);
-				Main.getStage().setScene(scene);
-				Move move = logReader.readMove();
-				// add delay
-				while (move != null) {
+			LogReader logReader = new LogReader(Logger.getLogFileName());
+			Scene scene = Interface.createInterface(true);
+			Main.getStage().setScene(scene);
+			Game.resetShips();
+
+			timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), actionEvent -> {
+				Move move;
+				try {
+					move = logReader.readMove();
+					if (move == null) {
+						timeline.stop();
+						logReader.close();
+						GameOver.popUp("Replay complete");
+						return;
+					}
 					int x = move.getX();
 					int y = move.getY();
 					if (move.isPlayer()) {
@@ -28,14 +42,19 @@ public class Replay {
 							Interface.getBotGameBoard().getButtons()[y][x].setText("X");
 						}
 					}
-					move = logReader.readMove();
+				} catch (IOException e) {
+					timeline.stop();
+					logReader.close();
+					Logger.setLogged(false);
+					GameOver.popUp("Replay failed");
 				}
-			}
+			}));
+
+			timeline.setCycleCount(Timeline.INDEFINITE);
+			timeline.play();
 		} catch (IOException e) {
 			Logger.setLogged(false);
 			GameOver.popUp("Replay failed");
-			return;
 		}
-		GameOver.popUp("Replay complete");
 	}
 }
