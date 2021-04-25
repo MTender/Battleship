@@ -23,6 +23,7 @@ public class Main extends Application {
 	public static void startNewGame() {
 		initiateClassVariables();
 		Scene scene = Interface.createInterface(false);
+
 		try {
 			Logger.setLogWriter(new LogWriter(Logger.getLogFileName()));
 		} catch (FileNotFoundException e) {

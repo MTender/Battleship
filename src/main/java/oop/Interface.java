@@ -1,9 +1,7 @@
 package oop;
 
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -30,6 +28,9 @@ public class Interface {
 		HBox base = new HBox();
 		base.setSpacing(60);
 		gp.setAlignment(Pos.CENTER);
+		GridPane.setMargin(base, new Insets(10));
+
+		Scene scene = new Scene(gp, 880, 780, Color.WHITE);
 
 		VBox left = new VBox();
 		HBox.setMargin(left, new Insets(0, 0, 0, 5));
@@ -43,6 +44,7 @@ public class Interface {
 		VBox.setMargin(upperLeftTitle, new Insets(0, 0, 0, 10));
 
 		botGameBoard = new Board(30, false);
+		botGameBoard.startResizeChecking(scene);
 		upperLeft.getChildren().addAll(upperLeftTitle, botGameBoard.getBoard());
 
 		VBox lowerLeft = new VBox();
@@ -53,6 +55,7 @@ public class Interface {
 		VBox.setMargin(lowerLeftTitle, new Insets(0, 0, 0, 10));
 
 		playerBoard = new Board(30, false);
+		playerBoard.startResizeChecking(scene);
 		lowerLeft.getChildren().addAll(lowerLeftTitle, playerBoard.getBoard());
 
 		left.getChildren().addAll(upperLeft, lowerLeft);
@@ -83,11 +86,13 @@ public class Interface {
 			upperRightTitle.setText("This is what you saw");
 			urtHolder.getChildren().add(upperRightTitle);
 			playerGameBoard = new Board(30, false);
+			playerGameBoard.startResizeChecking(scene);
 			upperRight.getChildren().addAll(urtHolder, playerGameBoard.getBoard());
 
 			lowerRightTitle.setText("These are the computer's ships");
 			lrtHolder.getChildren().add(lowerRightTitle);
 			Board botBoard = new Board(30, false);
+			botBoard.startResizeChecking(scene);
 			lowerRight.getChildren().addAll(lrtHolder, botBoard.getBoard());
 
 			right.getChildren().addAll(upperRight, lowerRight);
@@ -98,6 +103,7 @@ public class Interface {
 			upperRightTitle.setText("Click on these squares to shoot");
 			urtHolder.getChildren().add(upperRightTitle);
 			playerGameBoard = new Board(40, false);
+			playerGameBoard.startResizeChecking(scene);
 			upperRight.getChildren().addAll(urtHolder, playerGameBoard.getBoard());
 
 			lowerRightTitle.setText("Instructions");
@@ -135,7 +141,13 @@ public class Interface {
 			enableButtons(buttons);
 		}
 
-		return new Scene(gp, 880, 780, Color.WHITE);
+
+
+
+
+
+
+		return scene;
 	}
 
 	public static void enableButtons(Button[] buttons) {

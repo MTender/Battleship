@@ -1,5 +1,6 @@
 package oop;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -10,6 +11,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class Board {
+	private static double sceneWidth = 880;
+	private static double sceneHeight = 780;
+
 	private final int squareDimensions;
 	private VBox board;
 	private Button[][] buttons;
@@ -75,5 +79,31 @@ public class Board {
 			}
 			board.getChildren().add(row);
 		}
+	}
+
+	public void startResizeChecking(Scene scene) {
+		scene.widthProperty().addListener((ob, oldWidth, newWidth) -> {
+			sceneWidth = newWidth.doubleValue();
+			if (sceneWidth / 880.0 < sceneHeight / 780.0) {
+				double dimensions = squareDimensions * sceneWidth / 880.0;
+				for (Button[] button : buttons) {
+					for (Button button1 : button) {
+						button1.setPrefSize(dimensions, dimensions);
+					}
+				}
+			}
+		});
+
+		scene.heightProperty().addListener((ob, oldHeight, newHeight) -> {
+			sceneHeight = newHeight.doubleValue();
+			if (sceneWidth / 880.0 > sceneHeight / 780.0) {
+				double dimensions = squareDimensions * sceneHeight / 780.0;
+				for (Button[] button : buttons) {
+					for (Button button1 : button) {
+						button1.setPrefSize(dimensions, dimensions);
+					}
+				}
+			}
+		});
 	}
 }
