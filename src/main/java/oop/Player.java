@@ -10,7 +10,7 @@ public class Player {
 	public static boolean fire(Button square, int x, int y) {
 		Interface.getPlayerGameBoard().setClickable(false);
 		boolean hit = Game.fire(Computer.getSelfBoard(), gameBoard, Computer.getShips(), x, y, Interface.getPlayerGameBoard());
-		Logger.logMove(true, x, y, hit);
+		Logger.logMove(true, x, y);
 
 		if (!hit) {
 			square.setText("X");

@@ -19,7 +19,7 @@ public class Computer {
 			} while (gameBoard[y][x].equals("X") || gameBoard[y][x].equals("@"));
 
 			hit = Game.fire(Player.getSelfBoard(), gameBoard, Player.getShips(), x, y, Interface.getBotGameBoard());
-			Logger.logMove(false, x, y, hit);
+			Logger.logMove(false, x, y);
 
 			if (!hit) {
 				Interface.getBotGameBoard().getButtons()[y][x].setText("X");

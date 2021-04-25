@@ -7,7 +7,7 @@ public class Logger {
 	private static LogWriter logWriter;
 	private static final String logFileName = "battleship-log.csv";
 
-	public static void logMove(boolean who, int x, int y, boolean hit) {
+	public static void logMove(boolean who, int x, int y) {
 		if (logged) {
 			try {
 				logWriter.writeMove(who, x, y);
