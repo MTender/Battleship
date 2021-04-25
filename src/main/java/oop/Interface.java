@@ -1,12 +1,12 @@
 package oop;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -26,13 +26,14 @@ public class Interface {
 	}
 
 	public static Scene createInterface(boolean isReplay) {
+		GridPane gp = new GridPane();
 		HBox base = new HBox();
 		base.setSpacing(60);
+		gp.setAlignment(Pos.CENTER);
 
 		VBox left = new VBox();
-		HBox.setMargin(left, new Insets(0, 0, 0, 10));
+		HBox.setMargin(left, new Insets(0, 0, 0, 5));
 		left.setSpacing(40);
-		BorderPane.setMargin(left, new Insets(10));
 
 		VBox upperLeft = new VBox();
 		upperLeft.setSpacing(10);
@@ -61,6 +62,7 @@ public class Interface {
 		BorderPane.setMargin(right, new Insets(10));
 
 		base.getChildren().addAll(left, right);
+		gp.getChildren().add(base);
 
 		VBox upperRight = new VBox();
 		upperRight.setSpacing(10);
@@ -133,7 +135,7 @@ public class Interface {
 			enableButtons(buttons);
 		}
 
-		return new Scene(base, 880, 780, Color.WHITE);
+		return new Scene(gp, 880, 780, Color.WHITE);
 	}
 
 	public static void enableButtons(Button[] buttons) {
