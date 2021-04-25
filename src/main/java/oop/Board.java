@@ -37,7 +37,7 @@ public class Board {
 		board = new VBox();
 
 		HBox letters = new HBox();
-		letters.getChildren().add(new Rectangle(squareDimensions * 2, squareDimensions, Color.rgb(244, 244, 244)));
+		letters.getChildren().add(new Rectangle(squareDimensions * 1.5, squareDimensions, Color.rgb(244, 244, 244)));
 		for (int i = 'A'; i <= 'J'; i++) {
 			StackPane sp = new StackPane();
 			Text letter = new Text(Character.toString(i));
@@ -54,7 +54,7 @@ public class Board {
 			StackPane sp = new StackPane();
 			Text number = new Text((i != 9 ? " " : "") + (i + 1));
 			number.setFont(Font.font("Consolas", squareDimensions));
-			sp.getChildren().addAll(new Rectangle(squareDimensions * 2, squareDimensions, Color.rgb(244, 244, 244)), number);
+			sp.getChildren().addAll(new Rectangle(squareDimensions * 1.5, squareDimensions, Color.rgb(244, 244, 244)), number);
 			row.getChildren().add(sp);
 			for (int j = 0; j < 10; j++) {
 				Button square = new Button();

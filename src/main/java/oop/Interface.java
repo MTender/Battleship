@@ -1,6 +1,7 @@
 package oop;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -9,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 public class Interface {
 	private static Board botGameBoard;
@@ -30,10 +32,19 @@ public class Interface {
 		left.setSpacing(40);
 		BorderPane.setMargin(left, new Insets(10));
 
+		VBox upperLeft = new VBox();
+		Text upperLeftTitle = new Text("This is what the bot is seeing");
+		VBox.setMargin(upperLeftTitle, new Insets(0, 0, 0, 10));
 		botGameBoard = new Board(30, false);
-		playerBoard = new Board(30, false);
+		upperLeft.getChildren().addAll(upperLeftTitle, botGameBoard.getBoard());
 
-		left.getChildren().addAll(botGameBoard.getBoard(), playerBoard.getBoard());
+		VBox lowerLeft = new VBox();
+		Text lowerLeftTitle = new Text("These are your ships");
+		VBox.setMargin(lowerLeftTitle, new Insets(0, 0, 0, 10));
+		playerBoard = new Board(30, false);
+		lowerLeft.getChildren().addAll(lowerLeftTitle, playerBoard.getBoard());
+
+		left.getChildren().addAll(upperLeft, lowerLeft);
 
 		VBox right = new VBox();
 		right.setSpacing(40);
@@ -42,46 +53,91 @@ public class Interface {
 		bp.setLeft(left);
 		bp.setRight(right);
 
+		VBox upperRight = new VBox();
+		VBox lowerRight = new VBox();
+		Text upperRightTitle;
+		Text lowerRightTitle;
+		HBox urtHolder;
+		HBox lrtHolder;
 
 		if (isReplay) {
+			upperRightTitle = new Text("This is what you saw");
+			urtHolder = new HBox();
+			urtHolder.getChildren().add(upperRightTitle);
 			playerGameBoard = new Board(30, false);
-			Board botBoard = new Board(30, false);
+			upperRight.getChildren().addAll(urtHolder, playerGameBoard.getBoard());
 
-			right.getChildren().addAll(playerGameBoard.getBoard(), botBoard.getBoard());
+			lowerRightTitle = new Text("These are the computer's ships");
+			lrtHolder = new HBox();
+			lrtHolder.getChildren().add(lowerRightTitle);
+			Board botBoard = new Board(30, false);
+			lowerRight.getChildren().addAll(lrtHolder, botBoard.getBoard());
+
+			right.getChildren().addAll(upperRight, lowerRight);
 
 			Game.displayBoard(Player.getSelfBoard(), playerBoard);
 			Game.displayBoard(Computer.getSelfBoard(), botBoard);
 		} else {
+			upperRightTitle = new Text("Click on these squares to shoot");
+			urtHolder = new HBox();
+			urtHolder.getChildren().add(upperRightTitle);
 			playerGameBoard = new Board(40, false);
+			upperRight.getChildren().addAll(urtHolder, playerGameBoard.getBoard());
+
+			lowerRightTitle = new Text("Controls and instructions");
+			lrtHolder = new HBox();
+			lrtHolder.getChildren().add(lowerRightTitle);
 
 			HBox info = new HBox();
+			info.setSpacing(20);
+			info.setAlignment(Pos.TOP_RIGHT);
 
 			VBox controls = new VBox();
-			Button[] buttons = new Button[]{new Button("Randomize"), new Button("Confirm"), new Button("Rotate")};
+			Button[] buttons = new Button[]{new Button("Randomize"), new Button("Confirm")};
 			for (Button button : buttons) {
-				button.setPrefSize(200, 50);
-				button.setFont(Font.font(30));
+				button.setPrefSize(160, 40);
+				button.setFont(Font.font(24));
 			}
 			controls.getChildren().addAll(buttons);
 
-			VBox text = new VBox();
-			Text upper = new Text();
-			Text lower = new Text();
-			text.getChildren().addAll(upper, lower);
+			HBox textHolder = new HBox();
 
-			info.getChildren().addAll(controls, text);
+			Text text = new Text("This is a classic game of Battleship.\n\n" +
+					"Start the game by randomizing your own ship locations and then confirming.\n" +
+					"Shoot your enemy's ships on the above board.\nIn the case of a hit the shooter gets a second shot.");
+			text.setWrappingWidth(280);
+			text.setFont(Font.font(18));
+			text.setTextAlignment(TextAlignment.RIGHT);
 
-			right.getChildren().addAll(playerGameBoard.getBoard(), info);
+			textHolder.getChildren().addAll(text);
+
+			info.getChildren().addAll(controls, textHolder);
+
+			lowerRight.getChildren().addAll(lrtHolder, info);
+
+			right.getChildren().addAll(upperRight, lowerRight);
 
 			enableButtons(buttons);
 		}
 
-		return new Scene(bp, 900, 750, Color.WHITE);
+		VBox[] sections = {upperLeft, lowerLeft, upperRight, lowerRight};
+		Text[] titles = {upperLeftTitle, lowerLeftTitle, upperRightTitle, lowerRightTitle};
+
+		urtHolder.setAlignment(Pos.BASELINE_RIGHT);
+		lrtHolder.setAlignment(Pos.BASELINE_RIGHT);
+
+		for (Text title : titles) {
+			title.setFont(Font.font(20));
+		}
+		for (VBox section : sections) {
+			section.setSpacing(10);
+		}
+
+		return new Scene(bp, 900, 800, Color.WHITE);
 	}
 
 	public static void enableButtons(Button[] buttons) {
 		buttons[1].setVisible(false);
-		buttons[2].setVisible(false);
 
 		buttons[0].setOnMouseClicked(randomize -> {
 			String[][] myBoard = Game.createRandomBoard(Player.getShips());
@@ -97,11 +153,7 @@ public class Interface {
 			for (Button button : buttons) {
 				button.setVisible(false);
 			}
-			startGameplay();
+			playerGameBoard.setClickable(true);
 		});
-	}
-
-	private static void startGameplay() {
-		playerGameBoard.setClickable(true);
 	}
 }
