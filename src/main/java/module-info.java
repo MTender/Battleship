@@ -1,6 +1,7 @@
 module must.ruut {
   requires javafx.controls;
   requires javafx.fxml;
+    requires javafx.graphics;
 
-  exports oop;
+    exports oop;
 }
