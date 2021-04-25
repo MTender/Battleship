@@ -33,14 +33,22 @@ public class Interface {
 		BorderPane.setMargin(left, new Insets(10));
 
 		VBox upperLeft = new VBox();
+		upperLeft.setSpacing(10);
+
 		Text upperLeftTitle = new Text("This is what the bot is seeing");
+		upperLeftTitle.setFont(Font.font(20));
 		VBox.setMargin(upperLeftTitle, new Insets(0, 0, 0, 10));
+
 		botGameBoard = new Board(30, false);
 		upperLeft.getChildren().addAll(upperLeftTitle, botGameBoard.getBoard());
 
 		VBox lowerLeft = new VBox();
+		lowerLeft.setSpacing(10);
+
 		Text lowerLeftTitle = new Text("These are your ships");
+		lowerLeftTitle.setFont(Font.font(20));
 		VBox.setMargin(lowerLeftTitle, new Insets(0, 0, 0, 10));
+
 		playerBoard = new Board(30, false);
 		lowerLeft.getChildren().addAll(lowerLeftTitle, playerBoard.getBoard());
 
@@ -54,21 +62,27 @@ public class Interface {
 		bp.setRight(right);
 
 		VBox upperRight = new VBox();
+		upperRight.setSpacing(10);
 		VBox lowerRight = new VBox();
-		Text upperRightTitle;
-		Text lowerRightTitle;
-		HBox urtHolder;
-		HBox lrtHolder;
+		lowerRight.setSpacing(10);
+
+		Text upperRightTitle = new Text();
+		upperRightTitle.setFont(Font.font(20));
+		Text lowerRightTitle = new Text();
+		lowerRightTitle.setFont(Font.font(20));
+
+		HBox urtHolder = new HBox();
+		urtHolder.setAlignment(Pos.BASELINE_RIGHT);
+		HBox lrtHolder = new HBox();
+		lrtHolder.setAlignment(Pos.BASELINE_RIGHT);
 
 		if (isReplay) {
-			upperRightTitle = new Text("This is what you saw");
-			urtHolder = new HBox();
+			upperRightTitle.setText("This is what you saw");
 			urtHolder.getChildren().add(upperRightTitle);
 			playerGameBoard = new Board(30, false);
 			upperRight.getChildren().addAll(urtHolder, playerGameBoard.getBoard());
 
-			lowerRightTitle = new Text("These are the computer's ships");
-			lrtHolder = new HBox();
+			lowerRightTitle.setText("These are the computer's ships");
 			lrtHolder.getChildren().add(lowerRightTitle);
 			Board botBoard = new Board(30, false);
 			lowerRight.getChildren().addAll(lrtHolder, botBoard.getBoard());
@@ -78,14 +92,12 @@ public class Interface {
 			Game.displayBoard(Player.getSelfBoard(), playerBoard);
 			Game.displayBoard(Computer.getSelfBoard(), botBoard);
 		} else {
-			upperRightTitle = new Text("Click on these squares to shoot");
-			urtHolder = new HBox();
+			upperRightTitle.setText("Click on these squares to shoot");
 			urtHolder.getChildren().add(upperRightTitle);
 			playerGameBoard = new Board(40, false);
 			upperRight.getChildren().addAll(urtHolder, playerGameBoard.getBoard());
 
-			lowerRightTitle = new Text("Controls and instructions");
-			lrtHolder = new HBox();
+			lowerRightTitle.setText("Instructions");
 			lrtHolder.getChildren().add(lowerRightTitle);
 
 			HBox info = new HBox();
@@ -118,19 +130,6 @@ public class Interface {
 			right.getChildren().addAll(upperRight, lowerRight);
 
 			enableButtons(buttons);
-		}
-
-		VBox[] sections = {upperLeft, lowerLeft, upperRight, lowerRight};
-		Text[] titles = {upperLeftTitle, lowerLeftTitle, upperRightTitle, lowerRightTitle};
-
-		urtHolder.setAlignment(Pos.BASELINE_RIGHT);
-		lrtHolder.setAlignment(Pos.BASELINE_RIGHT);
-
-		for (Text title : titles) {
-			title.setFont(Font.font(20));
-		}
-		for (VBox section : sections) {
-			section.setSpacing(10);
 		}
 
 		return new Scene(bp, 900, 800, Color.WHITE);
