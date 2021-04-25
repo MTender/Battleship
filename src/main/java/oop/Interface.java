@@ -26,9 +26,11 @@ public class Interface {
 	}
 
 	public static Scene createInterface(boolean isReplay) {
-		BorderPane bp = new BorderPane();
+		HBox base = new HBox();
+		base.setSpacing(60);
 
 		VBox left = new VBox();
+		HBox.setMargin(left, new Insets(0, 0, 0, 10));
 		left.setSpacing(40);
 		BorderPane.setMargin(left, new Insets(10));
 
@@ -58,8 +60,7 @@ public class Interface {
 		right.setSpacing(40);
 		BorderPane.setMargin(right, new Insets(10));
 
-		bp.setLeft(left);
-		bp.setRight(right);
+		base.getChildren().addAll(left, right);
 
 		VBox upperRight = new VBox();
 		upperRight.setSpacing(10);
@@ -132,7 +133,7 @@ public class Interface {
 			enableButtons(buttons);
 		}
 
-		return new Scene(bp, 900, 800, Color.WHITE);
+		return new Scene(base, 880, 780, Color.WHITE);
 	}
 
 	public static void enableButtons(Button[] buttons) {

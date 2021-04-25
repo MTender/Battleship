@@ -29,7 +29,8 @@ public class Main extends Application {
 			Logger.setLogged(false);
 		}
 		stage.setTitle("Battleship");
-		stage.setResizable(false);
+		stage.setMinWidth(900);
+		stage.setMinHeight(820);
 		stage.setScene(scene);
 		stage.show();
 	}
