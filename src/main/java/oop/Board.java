@@ -11,13 +11,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class Board {
-	private static double sceneWidth = 880;
-	private static double sceneHeight = 780;
+	private static double sceneWidth = 920;
+	private static double sceneHeight = 790;
 
 	private final int squareDimensions;
 	private VBox board;
 	private Button[][] buttons;
 	private boolean clickable;
+	private Rectangle[] squares;
 
 	public Board(int squareDimensions, boolean clickable) {
 		this.squareDimensions = squareDimensions;
@@ -39,6 +40,7 @@ public class Board {
 
 	public void generate() {
 		board = new VBox();
+		squares = new Rectangle[10];
 
 		HBox letters = new HBox();
 		letters.getChildren().add(new Rectangle(squareDimensions * 1.5, squareDimensions, Color.rgb(244, 244, 244)));
@@ -46,7 +48,9 @@ public class Board {
 			StackPane sp = new StackPane();
 			Text letter = new Text(Character.toString(i));
 			letter.setFont(Font.font("Consolas", squareDimensions));
-			sp.getChildren().addAll(new Rectangle(squareDimensions, squareDimensions, Color.rgb(244, 244, 244)), letter);
+			Rectangle square = new Rectangle(squareDimensions, squareDimensions, Color.rgb(244, 244, 244));
+			squares[i - 65] = square;
+			sp.getChildren().addAll(square, letter);
 			letters.getChildren().add(sp);
 		}
 		board.getChildren().add(letters);
@@ -84,26 +88,26 @@ public class Board {
 	public void startResizeChecking(Scene scene) {
 		scene.widthProperty().addListener((ob, oldWidth, newWidth) -> {
 			sceneWidth = newWidth.doubleValue();
-			if (sceneWidth / 880.0 < sceneHeight / 780.0) {
-				double dimensions = squareDimensions * sceneWidth / 880.0;
-				for (Button[] button : buttons) {
-					for (Button button1 : button) {
-						button1.setPrefSize(dimensions, dimensions);
-					}
-				}
+			if (sceneWidth / 920 < sceneHeight / 790) {
+				alterSize(squareDimensions * sceneWidth / 920);
 			}
 		});
 
 		scene.heightProperty().addListener((ob, oldHeight, newHeight) -> {
 			sceneHeight = newHeight.doubleValue();
-			if (sceneWidth / 880.0 > sceneHeight / 780.0) {
-				double dimensions = squareDimensions * sceneHeight / 780.0;
-				for (Button[] button : buttons) {
-					for (Button button1 : button) {
-						button1.setPrefSize(dimensions, dimensions);
-					}
-				}
+			if (sceneWidth / 920 > sceneHeight / 790) {
+				alterSize(squareDimensions * sceneHeight / 790);
 			}
 		});
+	}
+
+	private void alterSize(double dimensions) {
+		for (int i = 0; i < 10; i++) {
+			for (Button button : buttons[i]) {
+				button.setPrefSize(dimensions, dimensions);
+			}
+			squares[i].setWidth(dimensions);
+			squares[i].setHeight(dimensions);
+		}
 	}
 }

@@ -30,7 +30,7 @@ public class Interface {
 		gp.setAlignment(Pos.CENTER);
 		GridPane.setMargin(base, new Insets(10));
 
-		Scene scene = new Scene(gp, 880, 780, Color.WHITE);
+		Scene scene = new Scene(gp, 920, 790, Color.WHITE);
 
 		VBox left = new VBox();
 		HBox.setMargin(left, new Insets(0, 0, 0, 5));
@@ -140,12 +140,6 @@ public class Interface {
 
 			enableButtons(buttons);
 		}
-
-
-
-
-
-
 
 		return scene;
 	}
