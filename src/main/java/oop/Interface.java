@@ -43,8 +43,7 @@ public class Interface {
 		upperLeftTitle.setFont(Font.font(20));
 		VBox.setMargin(upperLeftTitle, new Insets(0, 0, 0, 10));
 
-		botGameBoard = new Board(30, false);
-		botGameBoard.startResizeChecking(scene);
+		botGameBoard = new Board(30, scene);
 		upperLeft.getChildren().addAll(upperLeftTitle, botGameBoard.getBoard());
 
 		VBox lowerLeft = new VBox();
@@ -54,8 +53,7 @@ public class Interface {
 		lowerLeftTitle.setFont(Font.font(20));
 		VBox.setMargin(lowerLeftTitle, new Insets(0, 0, 0, 10));
 
-		playerBoard = new Board(30, false);
-		playerBoard.startResizeChecking(scene);
+		playerBoard = new Board(30, scene);
 		lowerLeft.getChildren().addAll(lowerLeftTitle, playerBoard.getBoard());
 
 		left.getChildren().addAll(upperLeft, lowerLeft);
@@ -85,14 +83,12 @@ public class Interface {
 		if (isReplay) {
 			upperRightTitle.setText("This is what you saw");
 			urtHolder.getChildren().add(upperRightTitle);
-			playerGameBoard = new Board(30, false);
-			playerGameBoard.startResizeChecking(scene);
+			playerGameBoard = new Board(30, scene);
 			upperRight.getChildren().addAll(urtHolder, playerGameBoard.getBoard());
 
 			lowerRightTitle.setText("These are the computer's ships");
 			lrtHolder.getChildren().add(lowerRightTitle);
-			Board botBoard = new Board(30, false);
-			botBoard.startResizeChecking(scene);
+			Board botBoard = new Board(30, scene);
 			lowerRight.getChildren().addAll(lrtHolder, botBoard.getBoard());
 
 			right.getChildren().addAll(upperRight, lowerRight);
@@ -102,8 +98,7 @@ public class Interface {
 		} else {
 			upperRightTitle.setText("Click on these squares to shoot");
 			urtHolder.getChildren().add(upperRightTitle);
-			playerGameBoard = new Board(40, false);
-			playerGameBoard.startResizeChecking(scene);
+			playerGameBoard = new Board(40, scene);
 			upperRight.getChildren().addAll(urtHolder, playerGameBoard.getBoard());
 
 			lowerRightTitle.setText("Instructions");
