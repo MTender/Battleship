@@ -23,13 +23,15 @@ public class Main extends Application {
 	public static void startNewGame() {
 		initiateClassVariables();
 		Scene scene = Interface.createInterface(false);
+
 		try {
 			Logger.setLogWriter(new LogWriter(Logger.getLogFileName()));
 		} catch (FileNotFoundException e) {
 			Logger.setLogged(false);
 		}
 		stage.setTitle("Battleship");
-		stage.setResizable(false);
+		stage.setMinWidth(940);
+		stage.setMinHeight(830);
 		stage.setScene(scene);
 		stage.show();
 	}
