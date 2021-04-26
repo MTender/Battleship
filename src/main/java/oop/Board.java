@@ -15,14 +15,17 @@ public class Board {
 	private static double sceneHeight = 790;
 
 	private final int squareDimensions;
-	private VBox board;
+	private final VBox board;
 	private Button[][] buttons;
 	private boolean clickable;
-	private Rectangle[] squares;
+	private final Rectangle[] squares;
 
-	public Board(int squareDimensions, boolean clickable) {
+	public Board(int squareDimensions, Scene scene) {
 		this.squareDimensions = squareDimensions;
-		this.clickable = clickable;
+		this.clickable = false;
+		board = new VBox();
+		squares = new Rectangle[10];
+		startResizeChecking(scene);
 		generate();
 	}
 
@@ -39,9 +42,6 @@ public class Board {
 	}
 
 	public void generate() {
-		board = new VBox();
-		squares = new Rectangle[10];
-
 		HBox letters = new HBox();
 		letters.getChildren().add(new Rectangle(squareDimensions * 1.5, squareDimensions, Color.rgb(244, 244, 244)));
 		for (int i = 'A'; i <= 'J'; i++) {

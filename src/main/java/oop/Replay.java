@@ -42,7 +42,7 @@ public class Replay {
 							Interface.getBotGameBoard().getButtons()[y][x].setText("X");
 						}
 					}
-				} catch (IOException e) {
+				} catch (Exception e) {
 					timeline.stop();
 					logReader.close();
 					Logger.setLogged(false);
